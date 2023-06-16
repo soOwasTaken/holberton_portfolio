@@ -6,7 +6,7 @@ npm run build
 cd ..
 cd game-3d
 git pull
-
+parcel build src/index.html --public-url ./
 cd ..
 
 echo "Repositories & build sucessfully Updated Properly"
