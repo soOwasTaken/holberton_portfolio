@@ -12,5 +12,7 @@ app.use("/game-2d", express.static(path.join(__dirname, "./game-2d/www")));
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`vlaaaaaaa le serveur il est lancer en balle et tout là`);
+  console.log(`http://localhost:3000/`);
+  console.log(`http://localhost:3000/game-2d`);
 });
