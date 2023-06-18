@@ -15,7 +15,7 @@ app.use("/game-2d", express.static(path.join(__dirname, "./game-2d/www")));
 
 // POST /score endpoint
 app.post("/game-2d/score", (req, res) => {
-  const { name, score } = req.body;
+  const { name, score, sessionId } = req.body;
 
   // Read the existing scores
   const scoreboard = JSON.parse(
@@ -23,7 +23,7 @@ app.post("/game-2d/score", (req, res) => {
   );
 
   // Add the new score
-  scoreboard.push({ name, score });
+  scoreboard.push({ name, score, sessionId });
 
   // Write the new scores back to the file
   fs.writeFileSync("scoreboard.json", JSON.stringify(scoreboard));
@@ -31,9 +31,27 @@ app.post("/game-2d/score", (req, res) => {
   res.status(200).send("Score saved");
 });
 
+app.get("/game-2d/score/:sessionId", (req, res) => {
+  const sessionId = req.params.sessionId;
+
+  // Read the existing scores
+  const scoreboard = JSON.parse(
+    fs.readFileSync("scoreboard.json", "utf-8") || "[]"
+  );
+
+  // Filter the scores for the given session ID
+  const playerScores = scoreboard.filter(
+    (score) => score.sessionId === sessionId
+  );
+
+  // Send the scores back to the client
+  res.status(200).json(playerScores);
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`http://localhost:3000/`);
-  console.log(`http://localhost:3000/game-2d`);
+  console.log(`http://localhost:3000/`, "<- 3d");
+  console.log(`http://localhost:3000/game-2d`, "2d map1");
+  console.log(`http://localhost:3000/game-2d/?level=2`, "<- 2d map2(if unlocked only)");
 });
