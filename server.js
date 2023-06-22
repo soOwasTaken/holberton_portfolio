@@ -1,8 +1,29 @@
 const express = require("express");
-const app = express();
+const helmet = require("helmet");
 const path = require("path");
 const fs = require("fs");
 const bodyParser = require("body-parser");
+const app = express();
+
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: [
+          "'self'",
+          "https://arcane-hamlet-04747-ff0302246a6e.herokuapp.com/",
+        ],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "https://arcane-hamlet-04747-ff0302246a6e.herokuapp.com/",
+        ],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+      },
+    },
+  })
+);
 
 // Enable JSON body parsing
 app.use(bodyParser.json());
@@ -53,5 +74,8 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`http://localhost:3000/`, "<- 3d");
   console.log(`http://localhost:3000/game-2d`, "2d map1");
-  console.log(`http://localhost:3000/game-2d/?level=2`, "<- 2d map2(if unlocked only)");
+  console.log(
+    `http://localhost:3000/game-2d/?level=2`,
+    "<- 2d map2(if unlocked only)"
+  );
 });
