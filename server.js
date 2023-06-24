@@ -36,7 +36,7 @@ app.use("/game-2d", express.static(path.join(__dirname, "./game-2d/www")));
 
 // POST /score endpoint
 app.post("/game-2d/score", (req, res) => {
-  const { name, score, sessionId } = req.body;
+  const { name, score, sessionId, map } = req.body;
 
   // Read the existing scores
   const scoreboard = JSON.parse(
@@ -44,7 +44,7 @@ app.post("/game-2d/score", (req, res) => {
   );
 
   // Add the new score
-  scoreboard.push({ name, score, sessionId });
+  scoreboard.push({ name, score, sessionId, map });
 
   // Write the new scores back to the file
   fs.writeFileSync("scoreboard.json", JSON.stringify(scoreboard));
