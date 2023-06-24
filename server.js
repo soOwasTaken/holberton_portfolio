@@ -1,29 +1,8 @@
 const express = require("express");
-const helmet = require("helmet");
 const path = require("path");
 const fs = require("fs");
 const bodyParser = require("body-parser");
 const app = express();
-
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: [
-          "'self'",
-          "https://arcane-hamlet-04747-ff0302246a6e.herokuapp.com/",
-        ],
-        scriptSrc: ["'self'", "'unsafe-inline'"],
-        imgSrc: [
-          "'self'",
-          "data:",
-          "https://arcane-hamlet-04747-ff0302246a6e.herokuapp.com/",
-        ],
-        styleSrc: ["'self'", "'unsafe-inline'"],
-      },
-    },
-  })
-);
 
 // Enable JSON body parsing
 app.use(bodyParser.json());
