@@ -57,4 +57,8 @@ app.listen(PORT, () => {
     `http://localhost:3000/game-2d/?level=2`,
     "<- 2d map2(if unlocked only)"
   );
+    console.log(
+      `http://localhost:3000/game-2d/?level=3`,
+      "<- 2d map3"
+    );
 });
