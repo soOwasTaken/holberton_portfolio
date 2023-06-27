@@ -48,6 +48,13 @@ app.get("/game-2d/score/:sessionId", (req, res) => {
   res.status(200).json(playerScores);
 });
 
+app.get("/game-2d/scoreboard", (req, res) => {
+  const scoreboard = JSON.parse(
+    fs.readFileSync("scoreboard.json", "utf-8") || "[]"
+  );
+  res.status(200).json(scoreboard);
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
@@ -57,8 +64,5 @@ app.listen(PORT, () => {
     `http://localhost:3000/game-2d/?level=2`,
     "<- 2d map2(if unlocked only)"
   );
-    console.log(
-      `http://localhost:3000/game-2d/?level=3`,
-      "<- 2d map3"
-    );
+  console.log(`http://localhost:3000/game-2d/?level=3`, "<- 2d map3");
 });
